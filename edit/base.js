@@ -33,12 +33,13 @@ const editor = {
   },
 
   updateTheme(name) {
-    if (!CODEMIRROR_THEMES[name]) {
-      name = 'default';
+    let styleName = /solarized/.exec(name) ? 'solarized' : name;
+    if (!CODEMIRROR_THEMES[styleName]) {
+      styleName = name = 'default';
       prefs.set('editor.theme', name);
     }
     $('#cm-theme').dataset.theme = name;
-    $('#cm-theme').textContent = CODEMIRROR_THEMES[name] || '';
+    $('#cm-theme').textContent = CODEMIRROR_THEMES[styleName] || '';
   },
 
   updateTitle(isDirty = editor.dirty.isDirty()) {
@@ -147,7 +148,8 @@ function EditorHeader() {
   function initThemeElement() {
     $('#editor.theme').append(...[
       $create('option', {value: 'default'}, t('defaultTheme')),
-      ...Object.keys(CODEMIRROR_THEMES).map(s => $create('option', s)),
+      ...Object.keys(CODEMIRROR_THEMES).map(s => s === 'solarized' ? [`${s} dark`, `${s} light`] : s).flat()
+        .map(s => $create('option', s)),
     ]);
     // move the theme after built-in CSS so that its same-specificity selectors win
     document.head.appendChild($('#cm-theme'));
