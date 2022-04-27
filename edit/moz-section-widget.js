@@ -190,42 +190,14 @@ function MozSectionWidget(cm, finder = MozSectionFinder(cm)) {
     const borderStyleForced = `1px ${hasBorder ? color.gutter.style.borderRightStyle : 'solid'} ${border}`;
 
     actualStyle.textContent = `
-      #header,
-      ${C_CONTAINER} {
-        background-color: ${color.gutter.bg};
-        border-top: ${borderStyleForced};
-        border-bottom: ${borderStyleForced};
-      }
-      #header,
-      #header a,
-      ${C_CONTAINER} ${C_LABEL} {
-        color: ${fore};
-      }
-      #header input,
-      #header select,
-      #header button,
-      ${C_CONTAINER} input,
-      ${C_CONTAINER} select {
-        background: rgba(255, 255, 255, ${
+      :root {
+        --theme-gutter-bg-color: ${color.gutter.bg};
+        --theme-border-style: ${borderStyleForced};
+        --theme-fore-color: ${fore};
+        --theme-input-bg-color: rgba(255, 255, 255, ${
           Math.max(MIN_LUMA, Math.pow(Math.max(0, color.gutter.bgLuma - MIN_LUMA * 2), 2)).toFixed(2)
         });
-        border: ${borderStyleForced};
-        transition: none;
-        color: ${fore};
-      }
-      #header button:disabled {
-        opacity: 0.5;
-      }
-      #header button:hover {
-        border-color: ${fore};
-      }
-      #header button:active {
-        background: ${border};
-        border-color: ${fore};
-      }
-      ${C_CONTAINER} .svg-icon.select-arrow {
-        fill: ${fore};
-        transition: none;
+        --theme-border-color: ${border};
       }
     `;
     $.root.appendChild(actualStyle);
