@@ -190,14 +190,20 @@ function MozSectionWidget(cm, finder = MozSectionFinder(cm)) {
     const borderStyleForced = `1px ${hasBorder ? color.gutter.style.borderRightStyle : 'solid'} ${border}`;
 
     actualStyle.textContent = `
+      #header,
       ${C_CONTAINER} {
         background-color: ${color.gutter.bg};
         border-top: ${borderStyleForced};
         border-bottom: ${borderStyleForced};
       }
+      #header,
+      #header a,
       ${C_CONTAINER} ${C_LABEL} {
         color: ${fore};
       }
+      #header input,
+      #header select,
+      #header button,
       ${C_CONTAINER} input,
       ${C_CONTAINER} select {
         background: rgba(255, 255, 255, ${
@@ -206,6 +212,16 @@ function MozSectionWidget(cm, finder = MozSectionFinder(cm)) {
         border: ${borderStyleForced};
         transition: none;
         color: ${fore};
+      }
+      #header button:disabled {
+        opacity: 0.5;
+      }
+      #header button:hover {
+        border-color: ${fore};
+      }
+      #header button:active {
+        background: ${border};
+        border-color: ${fore};
       }
       ${C_CONTAINER} .svg-icon.select-arrow {
         fill: ${fore};
